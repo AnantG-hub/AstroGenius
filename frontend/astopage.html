@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AstroGenius - Welcome</title>
+  <link rel="stylesheet" href="style2.css"/>
+</head>
+<body>
+
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcome">
+    <h1>Welcome to AstroGenius.com</h1>
+  </div>
+
+  <!-- Slideshow Screen -->
+  <div class="slideshow-screen" id="slideshow">
+    <div class="slideshow">
+      <div class="slides">
+        <img src="slide3.png " alt="Slide 1">
+        <img src="slide2.png" alt="Slide 2">
+      </div>
+    </div>
+    <h1>Discover the Future with AstroGenius</h1>
+  </div>
+
+  <script>
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById('welcome').style.display = 'none';
+        const slideshow = document.getElementById('slideshow');
+        slideshow.style.display = 'flex';
+        setTimeout(() => slideshow.style.opacity = 1, 100);
+      }, 2000);
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 8000);
+    };
+  </script>
+
+</body>
+</html>

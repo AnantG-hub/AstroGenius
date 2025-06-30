@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astrology Genius</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="topbar">
+  <span id="liveDayTime"></span>
+  <span id="liveDate"></span>
+</div>
+
+<!-- Login/Register Modal -->
+<div class="modal" id="authModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Login</h3>
+      <button class="close-btn" onclick="toggleModal(false)">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="authForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Submit</button>
+        <p class="toggle-mode">
+          <span id="switchText">Don't have an account?</span>
+          <a href="#" id="switchMode">Register</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo" data-translate="logo">🪐 Astrology Genius</div>
+  <nav class="nav">
+    <a href="#home" data-translate="navHome">Home</a>
+    <a href="#janam" data-translate="navJanam">Milan Kundali</a>
+    <a href="#services" data-translate="navServices">Services</a>
+    <a href="#" onclick="showPanchang()">Panchang</a>
+    <a href="#" onclick="toggleModal(true)" data-translate="navServices">Login/Register</a>
+  </nav>
+  <div class="nav-controls">
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+    </select>
+    <button id="panchangBtn" onclick="showPanchang()">📅 Panchang</button>
+    <button id="themeToggle">🌙</button>
+  </div>
+</header>
+
+<!-- Panchang Section -->
+<section id="realPanchang" class="section panchang-section" style="display:none;">
+  <h2>Get Panchang by Date & Place</h2>
+  <form id="panchangForm">
+    <input type="date" id="p_date" required />
+    <input type="text" id="p_place" placeholder="Enter place" required />
+    <input type="text" id="p_lat" placeholder="Latitude" readonly />
+    <input type="text" id="p_lon" placeholder="Longitude" readonly />
+    <button type="submit">Get Panchang</button>
+  </form>
+  <div id="panchangOutput" style="display:none; margin-top:1rem;">
+    <p><strong>Sunrise:</strong> <span id="sunrise"></span></p>
+    <p><strong>Tithi:</strong> <span id="tithi"></span></p>
+    <p><strong>Nakshatra:</strong> <span id="nakshatra"></span></p>
+    <p><strong>Yoga:</strong> <span id="yoga"></span></p>
+    <p><strong>Karana:</strong> <span id="karana"></span></p>
+  </div>
+</section>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <h1 data-translate="heroTitle">Discover Your Cosmic Blueprint</h1>
+  <p data-translate="heroDesc">Accurate Kundali reports with Vedic calculations</p>
+  <a href="#janam" class="btn" data-translate="heroBtn">Get Your Kundali</a>
+</section>
+
+<!-- Kundali Form -->
+<section id="janam" class="section">
+  <h2 data-translate="formTitle">Janam Kundali Generator</h2>
+  <form id="kundaliForm">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <select name="gender" required>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+    <input type="date" name="dob" required />
+    <input type="time" name="tob" required />
+    <input type="text" name="pob" id="place" placeholder="Place of Birth" required />
+    <input type="text" name="latitude" id="latitude" placeholder="Latitude" required />
+    <input type="text" name="longitude" id="longitude" placeholder="Longitude" required />
+    <button type="submit">Generate Kundali</button>
+  </form>
+  <div id="kundaliResult" class="kundali-result" style="display: none;">
+    <h3 data-translate="resultTitle">Your Kundali</h3>
+    <p data-translate="resultDesc">Generated Kundali based on your details</p>
+    <div id="kundaliChart"></div>
+    <button id="downloadKundali" class="btn" data-translate="downloadBtn">Download Kundali</button>
+  </div>
+</section>
+
+<!-- Slider Section -->
+<div class="slider">
+  <div class="slide active">
+    <img src="https://i.ibb.co/ZV0r31K/pandit1.png" alt="Astrology Image">
+    <div class="caption">
+      <h1>Welcome to Astrology Genius</h1>
+      <p>Generate your Kundali with AI Accuracy</p>
+      <a href="#" class="btn">Contact Now</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://i.ibb.co/YBdMJKY/pandit2.png" alt="Expert Advice">
+    <div class="caption">
+      <h1>Ask Our Experts</h1>
+      <p>100% Vedic Astrology Based Guidance</p>
+    </div>
+  </div>
+</div>
+
+<!-- Services Section -->
+<section class="services">
+  <div class="section-header">
+    <h2 data-translate="servicesTitle">Our Astrological Services</h2>
+    <p data-translate="servicesDesc">Explore the depth of Vedic astrology through our comprehensive range of services</p>
+  </div>
+  <div class="services-grid">
+    <!-- Service Cards -->
+    <div class="service-card">
+      <div class="card-header" style="background-color: #4a6491;">
+        <i class="fas fa-user-friends"></i>
+        <h3 data-translate="milan">Milan Kundali</h3>
+      </div>
+      <div class="card-body">
+        <p data-translate="milanDesc">Compatibility analysis for marriage based on 36 gunas.</p>
+        <a href="#" class="card-link" onclick="showMilanDetails()">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="card-header" style="background-color: #28a745;">
+        <i class="fas fa-chart-line"></i>
+        <h3 data-translate="bhagya">Bhagya Kundali</h3>
+      </div>
+      <div class="card-body">
+        <p data-translate="bhagyaDesc">Fortune prediction based on dasha and planetary strength.</p>
+        <a href="#" class="card-link" onclick="showBhagyaDetails()">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="card-header" style="background-color: #ffc107;">
+        <i class="fas fa-seedling"></i>
+        <h3 data-translate="moola">Moola Kundali</h3>
+      </div>
+      <div class="card-body">
+        <p data-translate="moolaDesc">Analysis of karmic patterns based on moola nakshatra.</p>
+        <a href="#" class="card-link" onclick="showMoolaDetails()">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-content">
+    <div class="footer-column">
+      <h3 data-translate="about">About Us</h3>
+      <ul class="footer-links">
+        <li><a href="#" data-translate="story">Our Story</a></li>
+        <li><a href="#" data-translate="team">Our Team</a></li>
+        <li><a href="#" data-translate="careers">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3 data-translate="services">Services</h3>
+      <ul class="footer-links">
+        <li><a href="#" data-translate="kundaliGen">Kundali Generation</a></li>
+        <li><a href="#" data-translate="match">Horoscope Matching</a></li>
+        <li><a href="#" data-translate="career">Career Guidance</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3 data-translate="contact">Contact Us</h3>
+      <ul class="footer-links">
+        <li><a href="#" data-translate="support">Support</a></li>
+        <li><a href="#" data-translate="feedback">Feedback</a></li>
+        <li><a href="#" data-translate="faq">FAQs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 <span data-translate="brand">Astrology Genius</span>. <span data-translate="rights">All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+function showPanchang() {
+  const section = document.getElementById("realPanchang");
+  section.style.display = "block";
+  section.scrollIntoView({ behavior: "smooth" });
+}
+
+document.getElementById("panchangForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const dateInput = document.getElementById("p_date").value;
+  const lat = parseFloat(document.getElementById("p_lat").value);
+  const lon = parseFloat(document.getElementById("p_lon").value);
+
+  if (!dateInput || isNaN(lat) || isNaN(lon)) {
+    alert("Please enter valid Date and Location first.");
+    return;
+  }
+
+  const date = new Date(dateInput);
+  const body = {
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear(),
+    hour: 6,
+    min: 0,
+    lat,
+    lon,
+    tzone: 5.5
+  };
+
+  try {
+    const response = await fetch("http://localhost:5000/api/panchang", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) throw new Error("Server error");
+
+    const data = await response.json();
+    document.getElementById("sunrise").textContent = data.sunrise || "N/A";
+    document.getElementById("tithi").textContent = data.tithi?.details?.tithi_name || "N/A";
+    document.getElementById("nakshatra").textContent = data.nakshatra?.details?.nak_name || "N/A";
+    document.getElementById("yoga").textContent = data.yog?.details?.yog_name || "N/A";
+    document.getElementById("karana").textContent = data.karan?.details?.karan_name || "N/A";
+
+    document.getElementById("panchangOutput").style.display = "block";
+  } catch (err) {
+    alert("Error fetching Panchang data. Please check backend.");
+    console.error(err);
+  }
+});
+
+document.getElementById("p_place").addEventListener("blur", () => {
+  const place = document.getElementById("p_place").value;
+  if (!place.trim()) return;
+
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(place)}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.length > 0) {
+        document.getElementById("p_lat").value = data[0].lat;
+        document.getElementById("p_lon").value = data[0].lon;
+      }
+    });
+});
+</script>
+
+<script src="your-theme-translate.js" defer></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
